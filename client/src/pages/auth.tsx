@@ -268,7 +268,7 @@ function RegisterForm({ registerMutation }: { registerMutation: any }) {
       </CardHeader>
       <CardContent className="px-0">
         <form onSubmit={form.handleSubmit((data) => registerMutation.mutate(data))} className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="fullName" className="text-sm font-medium">Full Name</Label>
               <Input 
@@ -312,7 +312,7 @@ function RegisterForm({ registerMutation }: { registerMutation: any }) {
             )}
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="classCode" className="text-sm font-medium">Class Code</Label>
               <Input 

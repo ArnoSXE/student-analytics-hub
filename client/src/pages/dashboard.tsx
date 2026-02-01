@@ -162,37 +162,37 @@ export default function Dashboard() {
         transition={{ duration: 0.5 }}
         className="space-y-2 mb-8"
       >
-        <div className="flex items-center gap-3">
-          <h2 className="text-4xl font-display font-bold tracking-tight bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text">
+        <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-display font-bold tracking-tight bg-gradient-to-r from-foreground to-foreground/70 bg-clip-text">
             {greeting}, {user?.fullName?.split(' ')[0]}
           </h2>
           <motion.div
             animate={{ rotate: [0, 14, -8, 14, -4, 10, 0] }}
             transition={{ duration: 2.5, repeat: Infinity, repeatDelay: 3 }}
           >
-            <Sparkles className="w-8 h-8 text-amber-400" />
+            <Sparkles className="w-6 h-6 sm:w-8 sm:h-8 text-amber-400" />
           </motion.div>
         </div>
-        <p className="text-muted-foreground text-lg">{currentTime} — Here's your class overview</p>
+        <p className="text-muted-foreground text-sm sm:text-base lg:text-lg">{currentTime} — Here's your class overview</p>
       </motion.div>
 
       <motion.div 
         variants={container}
         initial="hidden"
         animate="show"
-        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+        className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6"
       >
         {statCards.map((stat, index) => (
           <motion.div key={stat.title} variants={item}>
-            <Card className="relative overflow-hidden rounded-2xl border-border/50 bg-card/80 backdrop-blur-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
+            <Card className="relative overflow-hidden rounded-xl sm:rounded-2xl border-border/50 bg-card/80 backdrop-blur-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
               <div className={`absolute inset-0 bg-gradient-to-br ${stat.color} opacity-0 group-hover:opacity-5 transition-opacity duration-300`} />
-              <CardContent className="p-6">
-                <div className="flex items-start justify-between mb-4">
-                  <div className={`p-3 rounded-xl ${stat.bgColor}`}>
-                    <stat.icon className={`w-6 h-6 ${stat.textColor}`} />
+              <CardContent className="p-3 sm:p-4 lg:p-6">
+                <div className="flex items-start justify-between mb-2 sm:mb-4">
+                  <div className={`p-2 sm:p-3 rounded-lg sm:rounded-xl ${stat.bgColor}`}>
+                    <stat.icon className={`w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 ${stat.textColor}`} />
                   </div>
                   {stat.trend && (
-                    <div className={`flex items-center gap-1 text-xs font-semibold px-2 py-1 rounded-full ${
+                    <div className={`hidden sm:flex items-center gap-1 text-xs font-semibold px-2 py-1 rounded-full ${
                       stat.trend === 'up' 
                         ? 'bg-emerald-500/10 text-emerald-600' 
                         : 'bg-red-500/10 text-red-600'
@@ -207,11 +207,11 @@ export default function Dashboard() {
                   )}
                 </div>
                 <div>
-                  <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-1">{stat.title}</p>
+                  <p className="text-xs sm:text-sm font-medium text-muted-foreground uppercase tracking-wider mb-0.5 sm:mb-1 truncate">{stat.title}</p>
                   {stat.isText ? (
-                    <h3 className="text-2xl font-bold">{stat.value}</h3>
+                    <h3 className="text-lg sm:text-xl lg:text-2xl font-bold truncate">{stat.value}</h3>
                   ) : (
-                    <h3 className="text-4xl font-bold tracking-tight">
+                    <h3 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight">
                       <AnimatedNumber value={stat.value as number} suffix={stat.suffix} />
                     </h3>
                   )}
@@ -226,15 +226,15 @@ export default function Dashboard() {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.4, duration: 0.5 }}
-        className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-8"
+        className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 mt-6 sm:mt-8"
       >
-        <Card className="rounded-2xl border-border/50 bg-card/80 backdrop-blur-sm lg:col-span-2 hover:shadow-lg transition-shadow duration-300">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-xl font-display">Attendance Trend</CardTitle>
-            <CardDescription>Daily attendance pattern over time</CardDescription>
+        <Card className="rounded-xl sm:rounded-2xl border-border/50 bg-card/80 backdrop-blur-sm lg:col-span-2 hover:shadow-lg transition-shadow duration-300">
+          <CardHeader className="pb-2 px-4 sm:px-6">
+            <CardTitle className="text-lg sm:text-xl font-display">Attendance Trend</CardTitle>
+            <CardDescription className="text-xs sm:text-sm">Daily attendance pattern over time</CardDescription>
           </CardHeader>
-          <CardContent>
-            <div className="h-[320px] w-full">
+          <CardContent className="px-2 sm:px-6">
+            <div className="h-[240px] sm:h-[280px] lg:h-[320px] w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={analytics.attendanceTrend}>
                   <defs>
@@ -292,13 +292,13 @@ export default function Dashboard() {
           </CardContent>
         </Card>
 
-        <Card className="rounded-2xl border-border/50 bg-card/80 backdrop-blur-sm hover:shadow-lg transition-shadow duration-300">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-xl font-display">Overall Attendance</CardTitle>
-            <CardDescription>Present vs. Absent ratio</CardDescription>
+        <Card className="rounded-xl sm:rounded-2xl border-border/50 bg-card/80 backdrop-blur-sm hover:shadow-lg transition-shadow duration-300">
+          <CardHeader className="pb-2 px-4 sm:px-6">
+            <CardTitle className="text-lg sm:text-xl font-display">Overall Attendance</CardTitle>
+            <CardDescription className="text-xs sm:text-sm">Present vs. Absent ratio</CardDescription>
           </CardHeader>
-          <CardContent>
-            <div className="h-[280px] w-full flex items-center justify-center relative">
+          <CardContent className="px-2 sm:px-6">
+            <div className="h-[220px] sm:h-[250px] lg:h-[280px] w-full flex items-center justify-center relative">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
@@ -326,8 +326,8 @@ export default function Dashboard() {
                 </PieChart>
               </ResponsiveContainer>
               <div className="absolute inset-0 flex items-center justify-center flex-col">
-                <span className="text-4xl font-bold">{Math.round(analytics.averageAttendance)}%</span>
-                <span className="text-sm text-muted-foreground">Present</span>
+                <span className="text-2xl sm:text-3xl lg:text-4xl font-bold">{Math.round(analytics.averageAttendance)}%</span>
+                <span className="text-xs sm:text-sm text-muted-foreground">Present</span>
               </div>
             </div>
             <div className="flex justify-center gap-8 mt-2">
@@ -348,15 +348,15 @@ export default function Dashboard() {
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.6, duration: 0.5 }}
-        className="mt-8"
+        className="mt-6 sm:mt-8"
       >
-        <Card className="rounded-2xl border-border/50 bg-card/80 backdrop-blur-sm hover:shadow-lg transition-shadow duration-300">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-xl font-display">Exam Performance Distribution</CardTitle>
-            <CardDescription>Score ranges across all exams</CardDescription>
+        <Card className="rounded-xl sm:rounded-2xl border-border/50 bg-card/80 backdrop-blur-sm hover:shadow-lg transition-shadow duration-300">
+          <CardHeader className="pb-2 px-4 sm:px-6">
+            <CardTitle className="text-lg sm:text-xl font-display">Exam Performance Distribution</CardTitle>
+            <CardDescription className="text-xs sm:text-sm">Score ranges across all exams</CardDescription>
           </CardHeader>
-          <CardContent>
-            <div className="h-[280px] w-full">
+          <CardContent className="px-2 sm:px-6">
+            <div className="h-[220px] sm:h-[250px] lg:h-[280px] w-full">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={analytics.performanceDistribution} barCategoryGap="20%">
                   <defs>

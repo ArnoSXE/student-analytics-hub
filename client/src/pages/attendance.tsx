@@ -83,28 +83,28 @@ export default function AttendancePage() {
       <motion.div 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8"
+        className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 sm:mb-8"
       >
         <div>
-          <h2 className="text-4xl font-display font-bold tracking-tight">Attendance</h2>
-          <p className="text-muted-foreground text-lg mt-1">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-display font-bold tracking-tight">Attendance</h2>
+          <p className="text-muted-foreground text-sm sm:text-base lg:text-lg mt-1">
             {format(date, "EEEE, MMMM d, yyyy")}
           </p>
         </div>
 
-        <div className="flex gap-3 flex-wrap">
+        <div className="flex gap-2 sm:gap-3 flex-wrap w-full sm:w-auto">
           <Popover>
             <PopoverTrigger asChild>
               <Button 
                 variant="outline" 
                 data-testid="button-date-picker"
                 className={cn(
-                  "w-[220px] justify-start text-left font-normal h-11 rounded-xl border-border/60",
+                  "flex-1 sm:flex-none sm:w-[220px] justify-start text-left font-normal h-10 sm:h-11 rounded-xl border-border/60 text-sm sm:text-base",
                   !date && "text-muted-foreground"
                 )}
               >
                 <CalendarIcon className="mr-2 h-4 w-4" />
-                {date ? format(date, "PPP") : <span>Pick a date</span>}
+                <span className="truncate">{date ? format(date, "PPP") : "Pick a date"}</span>
               </Button>
             </PopoverTrigger>
             <PopoverContent className="w-auto p-0 rounded-xl shadow-xl" align="end">
@@ -123,7 +123,7 @@ export default function AttendancePage() {
             onClick={handleSave} 
             data-testid="button-save-attendance"
             disabled={markMutation.isPending || isHoliday || isLoadingStudents || !students?.length}
-            className="h-11 px-6 rounded-xl bg-gradient-to-r from-primary to-primary/90 shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300"
+            className="h-10 sm:h-11 px-4 sm:px-6 rounded-xl bg-gradient-to-r from-primary to-primary/90 shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300 text-sm sm:text-base"
           >
             {markMutation.isPending ? (
               <>
@@ -133,11 +133,14 @@ export default function AttendancePage() {
                 >
                   <Save className="w-4 h-4 mr-2" />
                 </motion.div>
-                Saving...
+                <span className="hidden sm:inline">Saving...</span>
+                <span className="sm:hidden">Save</span>
               </>
             ) : (
               <>
-                <Save className="w-4 h-4 mr-2" /> Save Changes
+                <Save className="w-4 h-4 mr-1 sm:mr-2" /> 
+                <span className="hidden sm:inline">Save Changes</span>
+                <span className="sm:hidden">Save</span>
               </>
             )}
           </Button>
@@ -149,27 +152,27 @@ export default function AttendancePage() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="grid grid-cols-2 gap-4 mb-6"
+          className="grid grid-cols-2 gap-3 sm:gap-4 mb-4 sm:mb-6"
         >
           <Card className="rounded-xl border-emerald-200 dark:border-emerald-900/50 bg-emerald-50/50 dark:bg-emerald-900/20">
-            <CardContent className="p-4 flex items-center gap-4">
-              <div className="p-3 rounded-xl bg-emerald-500/20">
-                <UserCheck className="w-6 h-6 text-emerald-600 dark:text-emerald-400" />
+            <CardContent className="p-3 sm:p-4 flex items-center gap-3 sm:gap-4">
+              <div className="p-2 sm:p-3 rounded-lg sm:rounded-xl bg-emerald-500/20">
+                <UserCheck className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600 dark:text-emerald-400" />
               </div>
               <div>
-                <p className="text-sm text-emerald-700 dark:text-emerald-300 font-medium">Present</p>
-                <p className="text-3xl font-bold text-emerald-600 dark:text-emerald-400">{presentCount}</p>
+                <p className="text-xs sm:text-sm text-emerald-700 dark:text-emerald-300 font-medium">Present</p>
+                <p className="text-2xl sm:text-3xl font-bold text-emerald-600 dark:text-emerald-400">{presentCount}</p>
               </div>
             </CardContent>
           </Card>
           <Card className="rounded-xl border-red-200 dark:border-red-900/50 bg-red-50/50 dark:bg-red-900/20">
-            <CardContent className="p-4 flex items-center gap-4">
-              <div className="p-3 rounded-xl bg-red-500/20">
-                <UserX className="w-6 h-6 text-red-600 dark:text-red-400" />
+            <CardContent className="p-3 sm:p-4 flex items-center gap-3 sm:gap-4">
+              <div className="p-2 sm:p-3 rounded-lg sm:rounded-xl bg-red-500/20">
+                <UserX className="w-5 h-5 sm:w-6 sm:h-6 text-red-600 dark:text-red-400" />
               </div>
               <div>
-                <p className="text-sm text-red-700 dark:text-red-300 font-medium">Absent</p>
-                <p className="text-3xl font-bold text-red-600 dark:text-red-400">{absentCount}</p>
+                <p className="text-xs sm:text-sm text-red-700 dark:text-red-300 font-medium">Absent</p>
+                <p className="text-2xl sm:text-3xl font-bold text-red-600 dark:text-red-400">{absentCount}</p>
               </div>
             </CardContent>
           </Card>
@@ -184,22 +187,22 @@ export default function AttendancePage() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
           >
-            <Card className="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 border-amber-200 dark:border-amber-900/50 rounded-2xl overflow-hidden">
-              <CardContent className="flex flex-col items-center justify-center p-16 text-center relative">
+            <Card className="bg-gradient-to-br from-amber-50 to-orange-50 dark:from-amber-900/20 dark:to-orange-900/20 border-amber-200 dark:border-amber-900/50 rounded-xl sm:rounded-2xl overflow-hidden">
+              <CardContent className="flex flex-col items-center justify-center p-8 sm:p-16 text-center relative">
                 <motion.div
                   animate={{ rotate: [0, 10, -10, 0] }}
                   transition={{ duration: 2, repeat: Infinity }}
                 >
-                  <Coffee className="w-16 h-16 text-amber-500 mb-6" />
+                  <Coffee className="w-12 h-12 sm:w-16 sm:h-16 text-amber-500 mb-4 sm:mb-6" />
                 </motion.div>
-                <h3 className="text-2xl font-bold text-amber-800 dark:text-amber-400 mb-2">It's Sunday!</h3>
-                <p className="text-amber-700 dark:text-amber-500 text-lg">Take a break - attendance is not marked on holidays.</p>
+                <h3 className="text-xl sm:text-2xl font-bold text-amber-800 dark:text-amber-400 mb-2">It's Sunday!</h3>
+                <p className="text-amber-700 dark:text-amber-500 text-sm sm:text-lg">Take a break - attendance is not marked on holidays.</p>
                 <motion.div 
-                  className="absolute top-4 right-4"
+                  className="absolute top-3 right-3 sm:top-4 sm:right-4"
                   animate={{ y: [0, -5, 0] }}
                   transition={{ duration: 2, repeat: Infinity }}
                 >
-                  <Sparkles className="w-8 h-8 text-amber-400/50" />
+                  <Sparkles className="w-6 h-6 sm:w-8 sm:h-8 text-amber-400/50" />
                 </motion.div>
               </CardContent>
             </Card>
@@ -239,15 +242,15 @@ export default function AttendancePage() {
                         key={student.id}
                         variants={item}
                         className={cn(
-                          "flex items-center justify-between p-5 transition-colors duration-200",
+                          "flex items-center justify-between p-3 sm:p-5 transition-colors duration-200",
                           !isPresent && "bg-red-50/50 dark:bg-red-900/10"
                         )}
                       >
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-3 sm:gap-4 min-w-0 flex-1">
                           <motion.div 
                             whileHover={{ scale: 1.05 }}
                             className={cn(
-                              "w-12 h-12 rounded-xl flex items-center justify-center font-bold text-sm transition-colors duration-300",
+                              "w-10 h-10 sm:w-12 sm:h-12 rounded-lg sm:rounded-xl flex items-center justify-center font-bold text-xs sm:text-sm transition-colors duration-300 flex-shrink-0",
                               isPresent 
                                 ? "bg-gradient-to-br from-emerald-400 to-emerald-500 text-white shadow-lg shadow-emerald-500/25" 
                                 : "bg-gradient-to-br from-red-400 to-red-500 text-white shadow-lg shadow-red-500/25"
@@ -255,13 +258,13 @@ export default function AttendancePage() {
                           >
                             {student.name.substring(0, 2).toUpperCase()}
                           </motion.div>
-                          <div>
-                            <p className="font-semibold text-lg">{student.name}</p>
-                            <p className="text-sm text-muted-foreground">Roll: {student.rollNumber || "N/A"}</p>
+                          <div className="min-w-0">
+                            <p className="font-semibold text-sm sm:text-lg truncate">{student.name}</p>
+                            <p className="text-xs sm:text-sm text-muted-foreground">Roll: {student.rollNumber || "N/A"}</p>
                           </div>
                         </div>
 
-                        <div className="flex gap-3">
+                        <div className="flex gap-2 sm:gap-3 flex-shrink-0">
                           <motion.button
                             whileTap={{ scale: 0.9 }}
                             onClick={() => {
@@ -269,13 +272,13 @@ export default function AttendancePage() {
                             }}
                             data-testid={`button-present-${student.id}`}
                             className={cn(
-                              "w-14 h-14 rounded-xl flex items-center justify-center transition-all duration-300 border-2",
+                              "w-11 h-11 sm:w-14 sm:h-14 rounded-lg sm:rounded-xl flex items-center justify-center transition-all duration-300 border-2",
                               isPresent 
                                 ? "bg-emerald-500 text-white border-emerald-500 shadow-lg shadow-emerald-500/30 scale-105" 
                                 : "bg-background text-muted-foreground border-border/60 hover:border-emerald-300 hover:bg-emerald-50 dark:hover:bg-emerald-900/20"
                             )}
                           >
-                            <Check className="w-6 h-6" strokeWidth={3} />
+                            <Check className="w-5 h-5 sm:w-6 sm:h-6" strokeWidth={3} />
                           </motion.button>
                           
                           <motion.button
@@ -285,13 +288,13 @@ export default function AttendancePage() {
                             }}
                             data-testid={`button-absent-${student.id}`}
                             className={cn(
-                              "w-14 h-14 rounded-xl flex items-center justify-center transition-all duration-300 border-2",
+                              "w-11 h-11 sm:w-14 sm:h-14 rounded-lg sm:rounded-xl flex items-center justify-center transition-all duration-300 border-2",
                               !isPresent 
                                 ? "bg-red-500 text-white border-red-500 shadow-lg shadow-red-500/30 scale-105" 
                                 : "bg-background text-muted-foreground border-border/60 hover:border-red-300 hover:bg-red-50 dark:hover:bg-red-900/20"
                             )}
                           >
-                            <X className="w-6 h-6" strokeWidth={3} />
+                            <X className="w-5 h-5 sm:w-6 sm:h-6" strokeWidth={3} />
                           </motion.button>
                         </div>
                       </motion.div>

@@ -86,11 +86,11 @@ export default function StudentsPage() {
       <motion.div 
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8"
+        className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 sm:mb-8"
       >
         <div>
-          <h2 className="text-4xl font-display font-bold tracking-tight">Students</h2>
-          <p className="text-muted-foreground text-lg mt-1">
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-display font-bold tracking-tight">Students</h2>
+          <p className="text-muted-foreground text-sm sm:text-base lg:text-lg mt-1">
             {students?.length || 0} students in your class
           </p>
         </div>
@@ -99,9 +99,9 @@ export default function StudentsPage() {
           <DialogTrigger asChild>
             <Button 
               data-testid="button-add-student"
-              className="h-11 px-6 rounded-xl bg-gradient-to-r from-primary to-primary/90 shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300"
+              className="h-10 sm:h-11 px-4 sm:px-6 rounded-xl bg-gradient-to-r from-primary to-primary/90 shadow-lg shadow-primary/25 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300 text-sm sm:text-base"
             >
-              <Plus className="w-4 h-4 mr-2" /> Add Student
+              <Plus className="w-4 h-4 mr-1 sm:mr-2" /> <span className="hidden sm:inline">Add Student</span><span className="sm:hidden">Add</span>
             </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[425px] rounded-2xl">
@@ -166,11 +166,11 @@ export default function StudentsPage() {
         transition={{ delay: 0.1 }}
         className="relative mb-6"
       >
-        <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
+        <Search className="absolute left-3 sm:left-4 top-1/2 -translate-y-1/2 w-4 h-4 sm:w-5 sm:h-5 text-muted-foreground" />
         <Input
           data-testid="input-search-students"
-          className="pl-12 h-12 rounded-xl bg-card border-border/60 focus:border-primary focus:ring-2 focus:ring-primary/20 text-base"
-          placeholder="Search students by name or roll number..."
+          className="pl-10 sm:pl-12 h-10 sm:h-12 rounded-xl bg-card border-border/60 focus:border-primary focus:ring-2 focus:ring-primary/20 text-sm sm:text-base"
+          placeholder="Search students..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
@@ -213,22 +213,22 @@ export default function StudentsPage() {
             variants={container}
             initial="hidden"
             animate="show"
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4"
           >
             {filteredStudents?.map((student, index) => (
               <motion.div key={student.id} variants={item}>
-                <Card className="group rounded-2xl border-border/50 bg-card/80 backdrop-blur-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden">
-                  <div className="p-5 flex items-center justify-between">
-                    <div className="flex items-center gap-4">
+                <Card className="group rounded-xl sm:rounded-2xl border-border/50 bg-card/80 backdrop-blur-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden">
+                  <div className="p-4 sm:p-5 flex items-center justify-between">
+                    <div className="flex items-center gap-3 sm:gap-4 min-w-0">
                       <motion.div 
                         whileHover={{ scale: 1.1, rotate: 5 }}
-                        className="w-14 h-14 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-primary/20"
+                        className="w-11 h-11 sm:w-14 sm:h-14 bg-gradient-to-br from-primary to-accent rounded-lg sm:rounded-xl flex items-center justify-center text-white font-bold text-base sm:text-lg shadow-lg shadow-primary/20 flex-shrink-0"
                       >
                         {student.name.charAt(0).toUpperCase()}
                       </motion.div>
-                      <div>
-                        <h3 className="font-bold text-lg text-foreground">{student.name}</h3>
-                        <p className="text-sm text-muted-foreground">
+                      <div className="min-w-0">
+                        <h3 className="font-bold text-base sm:text-lg text-foreground truncate">{student.name}</h3>
+                        <p className="text-xs sm:text-sm text-muted-foreground">
                           Roll: {student.rollNumber || "N/A"}
                         </p>
                       </div>
@@ -240,9 +240,9 @@ export default function StudentsPage() {
                           variant="ghost" 
                           size="icon" 
                           data-testid={`button-delete-student-${student.id}`}
-                          className="opacity-0 group-hover:opacity-100 text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-all duration-200 rounded-xl"
+                          className="opacity-100 sm:opacity-0 group-hover:opacity-100 text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-all duration-200 rounded-lg sm:rounded-xl flex-shrink-0"
                         >
-                          <Trash2 className="w-5 h-5" />
+                          <Trash2 className="w-4 h-4 sm:w-5 sm:h-5" />
                         </Button>
                       </AlertDialogTrigger>
                       <AlertDialogContent className="rounded-2xl">
