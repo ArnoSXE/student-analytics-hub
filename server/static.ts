@@ -7,7 +7,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export function serveStatic(app: Express) {
-  const distPath = path.resolve(__dirname, "../dist");
+  const distPath = path.resolve(__dirname, "../dist/public");
 
   if (!fs.existsSync(distPath)) {
     console.log("Dist folder not found, skipping static serve.");
@@ -16,7 +16,9 @@ export function serveStatic(app: Express) {
 
   app.use(express.static(distPath));
 
-  app.use("*", (_req, res) => {
+  // Express v5 compatible wildcard
+  app.use(/.*/, (_req, res) => {
     res.sendFile(path.resolve(distPath, "index.html"));
   });
 }
+
